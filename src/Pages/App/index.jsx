@@ -7,6 +7,7 @@ import {NotFound} from '../NotFound';
 import {SignIn} from '../SignIn';
 import { NavBar } from '../../Components/NavBar';
 import './App.css';
+import { ContextApiProvider } from '../../Components/ContextApi';
 
 
 const AppRoutes = () => {
@@ -28,10 +29,12 @@ function App() {
  
   
   return (
+    <ContextApiProvider>
        <BrowserRouter>
         <AppRoutes/>
         <NavBar/>
        </BrowserRouter>
+    </ContextApiProvider>
   )
 }
 

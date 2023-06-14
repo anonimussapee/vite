@@ -1,13 +1,18 @@
 import { NavLink } from 'react-router-dom';
 import '../../Pages/App/App.css';
+import { useContext } from 'react';
+import { ContextApi } from '../ContextApi';
+import { ShoppingCartIcon } from '@heroicons/react/24/solid';
 
 const NavBar = () => {
+
+  const {cartStatus} = useContext(ContextApi);
 
   const activeStyle = 'underline font-semibold underline-offset-4';
 
   return(
-    <nav className=' flex justify-between items-center fixed top-0 z-10 w-full p-4 text-sm font-light bg-emerald-700 text-white'>
-      <ul className=' flex items-center gap-3 ' >
+    <nav className='flex sm:flex-col md:flex-row justify-between items-center fixed top-0 z-10 w-full p-4 text-sm font-light bg-emerald-700 text-white'>
+      <ul className='xs:grid  xs:grid-cols-2 sm:flex  md:flex  items-center gap-3 ' >
         <li className=' text-lg font-semibold'>
           <NavLink to='/'
           className={({ isActive}) =>
@@ -18,7 +23,7 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to='/all'
+          <NavLink to='/'
           className={({ isActive}) =>
           isActive ? activeStyle : undefined
         }
@@ -72,12 +77,12 @@ const NavBar = () => {
           </NavLink>
         </li>
       </ul>
-      <ul className=' flex items-center gap-3'>
+      <ul className='xs:grid  xs:grid-cols-1 sm:flex  md:flex items-center gap-3'>
         <li className='text-white/60'>
           jdxevs@platzi.com
         </li>
         <li>
-          <NavLink to='/my-orders'
+          <NavLink to='/shopping-cartmy-orders'
           className={({ isActive}) =>
           isActive ? activeStyle : undefined
         }
@@ -103,12 +108,13 @@ const NavBar = () => {
             Sign In
           </NavLink>
         </li>
-        <li>
-          &#169; 0 
+        <li className='flex w-auto h-auto text-white gap-2 justify-center items-center font-semibold cursor-pointer' >
+          <ShoppingCartIcon className='w-6 h-6 '/>
+          <p>{cartStatus.data}</p>
+           
         </li>
       </ul>
     </nav>
   );
 }
-
 export {NavBar};
