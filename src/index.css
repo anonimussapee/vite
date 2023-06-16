@@ -1,5 +1,10 @@
 ::-webkit-scrollbar{
-  display: none;
+  width: 5px;
+  height: 0;
+  background-color: #047857;
+}
+::-webkit-scrollbar-thumb{
+  background-color: black;
 }
 *{
   box-sizing: border-box;
