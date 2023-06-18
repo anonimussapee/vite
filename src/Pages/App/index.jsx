@@ -8,6 +8,8 @@ import {SignIn} from '../SignIn';
 import { NavBar } from '../../Components/NavBar';
 import './App.css';
 import { ContextApiProvider } from '../../Components/ContextApi';
+import { Checkout } from '../../Components/Checkout';
+import { ContextMyOrdersProvider } from '../../Components/ContextApi/contextMyOrders';
 
 
 const AppRoutes = () => {
@@ -17,6 +19,8 @@ const AppRoutes = () => {
     {path : '/my-account', element : <MyAccount/>},
     {path : '/my-order', element : <MyOrder/>},
     {path : '/my-orders', element : <MyOrders/>},
+    {path : '/my-orders/last', element : <MyOrder/>},
+    {path : '/my-orders/:id', element : <MyOrder/>},
     {path : '/sign-in', element : <SignIn/>},
     {path : '/*', element : <NotFound/>}, 
   ]);
@@ -30,10 +34,13 @@ function App() {
   
   return (
     <ContextApiProvider>
-       <BrowserRouter>
-        <AppRoutes/>
-        <NavBar/>
-       </BrowserRouter>
+      <ContextMyOrdersProvider>
+        <BrowserRouter>
+          <AppRoutes/>
+          <NavBar/>
+          <Checkout/>
+        </BrowserRouter>
+      </ContextMyOrdersProvider>
     </ContextApiProvider>
   )
 }

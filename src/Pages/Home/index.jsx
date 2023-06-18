@@ -3,7 +3,6 @@ import { Card } from '../../Components/Card';
 import { Layout } from '../../Components/Layout';
 import { ContextApi } from '../../Components/ContextApi';
 import { Details } from '../../Components/Details';
-import { Checkout } from '../../Components/Checkout';
 
 
 const Home = () => {
@@ -20,7 +19,6 @@ const Home = () => {
         )}
        </div>
        <Details/>
-       <Checkout/>
       </Layout>
   )
 }

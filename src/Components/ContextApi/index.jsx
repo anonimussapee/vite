@@ -8,11 +8,24 @@ const ContextApiProvider = ({children}) => {
 
   const { data } = FetchData('https://api.escuelajs.co/api/v1/products');
   
-  const cartStatus= UseLocaleStorage('cartStatus',0);
 
-  // in here will adding products
+  // in here will adding products into cart
   const cartData = UseLocaleStorage('CartData', []);
 
+  //  in here will living orderList after click on checkout button
+  const order = UseLocaleStorage('orderCart',[]);
+
+  const orderData = order.data;
+  // in here live we cart status
+  
+
+  let cartIconValue =0;
+  
+  cartData.data?.forEach(item => { 
+    cartIconValue +=item.times;
+  });
+  
+  
   // this implementation is used to change state for show checkout panel
   const [checkoutState, setCheckoutSide] = useState(false);
 
@@ -20,6 +33,7 @@ const ContextApiProvider = ({children}) => {
   const [detailState, setDetailState ] = useState(false);
   // in here will live data to show in panel detail
   const [dataDetail,setDataDetail ] = useState({});
+
 
   const toggleDetails = () => {
      setDetailState(!detailState);
@@ -47,7 +61,6 @@ const ContextApiProvider = ({children}) => {
     });
     newCartData = Object.values(organizeder);
     cartData.save(newCartData);
-    console.log(newCartData);
 
   }
 
@@ -60,22 +73,31 @@ const ContextApiProvider = ({children}) => {
   }
 
   const togglecheckout = () => {
-    setCheckoutSide( !checkoutState);
- }
+      setCheckoutSide( !checkoutState);
+  }
 
+  const deleteProduct = (id) =>{
+    const newSet = cartData.data.filter(products =>products.id !== id);
+   cartData.save(newSet);
+    
+    }
 
  return (
   <ContextApi.Provider value={{
     data,
-    cartStatus,
     detailState,
     toggleDetails,
     setDataToPanel,
+    deleteProduct,
     dataDetail,
+    cartIconValue,
     cartData,
+    cartDataValues:cartData.data,
     setCartData,
     checkoutState,
     togglecheckout,
+    order,
+    orderData
   }}>
     {children}
   </ContextApi.Provider>
