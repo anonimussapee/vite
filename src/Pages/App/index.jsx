@@ -10,6 +10,8 @@ import './App.css';
 import { ContextApiProvider } from '../../Components/ContextApi';
 import { Checkout } from '../../Components/Checkout';
 import { ContextMyOrdersProvider } from '../../Components/ContextApi/contextMyOrders';
+import { Categories } from '../Categories';
+import {ContextUserProvider} from '../../Components/ContextApi/contextUser';
 
 
 const AppRoutes = () => {
@@ -22,6 +24,7 @@ const AppRoutes = () => {
     {path : '/my-orders/last', element : <MyOrder/>},
     {path : '/my-orders/:id', element : <MyOrder/>},
     {path : '/sign-in', element : <SignIn/>},
+    {path : '/categories/:id', element : <Categories/>},
     {path : '/*', element : <NotFound/>}, 
   ]);
   return routes;
@@ -35,11 +38,13 @@ function App() {
   return (
     <ContextApiProvider>
       <ContextMyOrdersProvider>
-        <BrowserRouter>
-          <AppRoutes/>
-          <NavBar/>
-          <Checkout/>
-        </BrowserRouter>
+        <ContextUserProvider>
+          <BrowserRouter>
+            <AppRoutes/>
+            <NavBar/>
+            <Checkout/>
+          </BrowserRouter>
+        </ContextUserProvider>
       </ContextMyOrdersProvider>
     </ContextApiProvider>
   )

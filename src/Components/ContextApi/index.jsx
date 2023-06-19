@@ -15,6 +15,12 @@ const ContextApiProvider = ({children}) => {
   //  in here will living orderList after click on checkout button
   const order = UseLocaleStorage('orderCart',[]);
 
+  const [searchValue, setSearchValue] = useState('');
+
+  const filterProducts = data.filter(item => {
+    return item.title.toLowerCase().includes(searchValue.toLowerCase());
+  });
+
   const orderData = order.data;
   // in here live we cart status
   
@@ -97,7 +103,10 @@ const ContextApiProvider = ({children}) => {
     checkoutState,
     togglecheckout,
     order,
-    orderData
+    orderData,
+    setSearchValue,
+    searchValue,
+    filterProducts,
   }}>
     {children}
   </ContextApi.Provider>
